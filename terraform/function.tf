@@ -33,16 +33,28 @@ resource "google_cloudfunctions_function" "function" {
 
     # Must match the function name in the cloud function `main.py` source code
     entry_point           = "visitor_count"
-
+    
+    trigger_http          = true
+    
     #
-    event_trigger {
-        event_type = "google.storage.object.finalize"
-        resource   = "${var.project_id}-input"
-    }
-
+    #event_trigger {
+    #    event_type = "google.storage.object.finalize"
+    #    resource   = "${var.project_id}-input"
+    #}
+    
     # Dependencies are automatically inferred so these lines can be deleted
     depends_on            = [
         google_storage_bucket.function_bucket,  # declared in `storage.tf`
         google_storage_bucket_object.zip
     ]
+}
+
+# Create IAM entry so all users can invoke the function
+resource "google_cloudfunctions_function_iam_member" "invoker" {
+  project        = google_cloudfunctions_function.function.project
+  region         = google_cloudfunctions_function.function.region
+  cloud_function = google_cloudfunctions_function.function.name
+
+  role   = "roles/cloudfunctions.invoker"
+  member = "allUsers"
 }
