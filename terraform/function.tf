@@ -1,3 +1,14 @@
+resource "google_storage_bucket" "bucket" {
+  name     = "test-bucket"
+  location = "US"
+}
+
+resource "google_storage_bucket_object" "archive" {
+  name   = "index.zip"
+  bucket = google_storage_bucket.bucket.name
+  source = "./src"
+}
+
 resource "google_cloudfunctions_function" "function" {
   name        = "function-test"
   description = "My function"
