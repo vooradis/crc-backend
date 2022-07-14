@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "bucket" {
-  name     = "test-bucket"
-  location = "US"
+  name     = "${var.project}-bucket"
+  location = "australia-southeast1"
 }
 
 resource "google_storage_bucket_object" "archive" {
@@ -10,7 +10,7 @@ resource "google_storage_bucket_object" "archive" {
 }
 
 resource "google_cloudfunctions_function" "function" {
-  name        = "function-test"
+  name        = "${var.project}-function"
   description = "My function"
   runtime     = "python37"
 
