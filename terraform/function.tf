@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "bucket" {
-  name     = "${var.project}-bucket"
+  name     = "backend-infra-bucket"
   location = "australia-southeast1"
 }
 
