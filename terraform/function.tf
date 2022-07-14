@@ -10,7 +10,7 @@ resource "google_storage_bucket_object" "archive" {
 }
 
 resource "google_cloudfunctions_function" "function" {
-  name        = "${var.project}-function"
+  name        = "backend-cloud-function"
   description = "My function"
   runtime     = "python37"
 
