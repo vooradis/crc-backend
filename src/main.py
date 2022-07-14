@@ -14,7 +14,7 @@ def get_visitor_count():
     database = firestore.Client()
     visitor_nb = 0
     # Get the document
-    visitor_ref = database.collection(u'cloudresume').document(u'visitor_count')
+    visitor_ref = database.collection(u'crc').document(u'visitor_count')
     doc = visitor_ref.get()
     # If the documents exists
     if doc.exists:
@@ -30,7 +30,7 @@ def save_visitor_data(visitor_nb):
     :param visitor_nb: number of visitor
     """
     database = firestore.Client()
-    visitor_ref = database.collection(u'cloudresume').document(u'visitor_count')
+    visitor_ref = database.collection(u'crc').document(u'visitor_count')
 
     # Write the new number of visitors
     visitor_ref.set({'count': visitor_nb})
@@ -48,7 +48,7 @@ def visitor_count(request):  # pylint: disable=unused-argument
         'currentVisitor': current_visitor
     }
     headers = {
-        'Access-Control-Allow-Origin': 'https://cloud-resume-challenge.samratvooradi.com'
+        'Access-Control-Allow-Origin': '*'
     }
 
     return jsonify(client_data), 200, headers
