@@ -4,7 +4,7 @@ resource "google_storage_bucket" "bucket" {
 }
 
 resource "google_storage_bucket_object" "archive" {
-  name   = "src.zip"
+  name   = "index.zip"
   bucket = google_storage_bucket.bucket.name
   source = "src.zip"
 }
