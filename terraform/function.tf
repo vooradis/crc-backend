@@ -4,9 +4,9 @@ resource "google_storage_bucket" "bucket" {
 }
 
 resource "google_storage_bucket_object" "archive" {
-  name   = "index.zip"
+  name   = "src.zip"
   bucket = google_storage_bucket.bucket.name
-  source = "./src"
+  source = "./src.zip"
 }
 
 resource "google_cloudfunctions_function" "function" {
