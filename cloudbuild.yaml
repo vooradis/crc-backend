@@ -1,4 +1,17 @@
 steps:
-  - name: gcr.io/cloud-builders/gsutil
-    id: Sync the backend scripts
-    args: ['-m', 'rsync', '-r', '-c', '-d', '.', 'gs://crc-backend-bucket']
+  # This step installs dependencies
+  # This step runs the unit tests on the app
+  - name: 'python'
+    id: 'test-python-code'
+    entrypoint: /bin/sh
+    args:
+      - '-c'
+      - |-
+        pip install -r src/requirements.txt
+        python -v src/main_test.py
+    
+  # This step updates gcs bucket with latest github commit
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: 'sync-gcs-bucket'
+    args: ['-m', 'rsync', '-r', '-c', '-d', '.', 'gs://crc-backend-bucket-test']
+    waitFor: ['test-python-code']
