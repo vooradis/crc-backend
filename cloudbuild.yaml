@@ -13,5 +13,5 @@ steps:
   # This step updates gcs bucket with latest github commit
   - name: 'gcr.io/cloud-builders/gsutil'
     id: 'sync-gcs-bucket'
-    args: ['-m', 'rsync', '-r', '-c', '-d', '.', 'gs://crc-backend-bucket-test']
+    args: ['-m', 'rsync', '-r', '-c', '-d', '.', 'gs://crc-backend-bucket']
     waitFor: ['test-python-code']
