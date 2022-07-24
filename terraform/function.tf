@@ -38,7 +38,7 @@ resource "google_cloudfunctions_function" "function" {
 resource "google_api_gateway_api" "api_gw" {
   provider     = google-beta
   api_id       = local.api_gateway_container_id
-  project      = var.project_id
+  project      = var.project
   display_name = local.display_name
 }
 
@@ -46,7 +46,7 @@ resource "google_api_gateway_api_config" "api_cfg" {
   provider             = google-beta
   api                  = google_api_gateway_api.api_gw.api_id
   api_config_id_prefix = local.api_config_id_prefix
-  project              = var.project_id
+  project              = var.project
   display_name         = local.display_name
 
   openapi_documents {
@@ -63,7 +63,7 @@ resource "google_api_gateway_api_config" "api_cfg" {
 resource "google_api_gateway_gateway" "gw" {
   provider = google-beta
   region   = var.region
-  project  = var.project_id
+  project  = var.project
   
   api_config   = google_api_gateway_api_config.api_cfg.id
 
@@ -74,11 +74,12 @@ resource "google_api_gateway_gateway" "gw" {
 }
 
 # IAM entry for all users to invoke the function
-resource "google_cloudfunctions_function_iam_member" "invoker" {
-  project        = google_cloudfunctions_function.function.project
-  region         = google_cloudfunctions_function.function.region
-  cloud_function = google_cloudfunctions_function.function.name
+resource "google_api_gateway_api_config_iam_member" "member" {
+  project        = google_api_gateway_api_config.api_cfg.project
+  region         = google_api_gateway_api_config.api_cfg.region
+  api            = google_api_gateway_api_config.api_cfg.api
+  api_config     = google_api_gateway_api_config.api_cfg.api_config_id
 
-  role   = "roles/cloudfunctions.invoker"
+  role   = "roles/apigateway.viewer"
   member = "allUsers"
 }
