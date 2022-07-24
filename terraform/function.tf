@@ -52,7 +52,7 @@ resource "google_api_gateway_api_config" "api_cfg" {
   openapi_documents {
     document {
       path     = "openapi.yaml"
-      contents = filebase64("test-fixtures/apigateway/openapi.yaml")
+      contents = filebase64("openapi.yaml")
     }
   }
   lifecycle {
