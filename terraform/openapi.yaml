@@ -1,0 +1,31 @@
+swagger: '2.0'
+info:
+  title: cf-api
+  description: API Gateway for Serverless function
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /api/counter:
+    get:
+      summary: Echo
+      operationId: echo
+      x-google-backend:
+        address: https://australia-southeast1-elevated-cargo-355220.cloudfunctions.net/backend-serverless-function
+      responses:
+        200:
+          description: Successful response
+          schema:
+            type: string
+    options:
+       summary: Echo
+       operationId: echo
+       x-google-backend:
+         address: https://australia-southeast1-elevated-cargo-355220.cloudfunctions.net/backend-serverless-function
+       responses:
+        200:
+          description: Successful response
+          schema:
+            type: string
