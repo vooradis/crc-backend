@@ -37,7 +37,7 @@ resource "google_cloudfunctions_function" "function" {
 
 resource "google_api_gateway_api" "api_gw" {
   provider     = google-beta
-  api_id       = local.api_gateway_container_id
+  api_id       = "${var.project}-api-id"
   project      = var.project
   display_name = local.display_name
 }
@@ -67,7 +67,7 @@ resource "google_api_gateway_gateway" "gw" {
   
   api_config   = google_api_gateway_api_config.api_cfg.id
 
-  gateway_id   = local.gateway_id
+  gateway_id   = "${var.project}-gateway-id"
   display_name = local.display_name
   
   depends_on   = [google_api_gateway_api_config.api_cfg]
