@@ -75,6 +75,7 @@ resource "google_api_gateway_gateway" "api_gw" {
 
 # IAM entry for all users to invoke the function
 resource "google_api_gateway_gateway_iam_member" "member" {
+  provider = google-beta
   project = google_api_gateway_gateway.api_gw.project
   region = google_api_gateway_gateway.api_gw.region
   gateway = google_api_gateway_gateway.api_gw.gateway_id
