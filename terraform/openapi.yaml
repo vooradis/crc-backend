@@ -8,7 +8,7 @@ schemes:
 produces:
   - application/json
 paths:
-  /api/counter:
+  /counter:
     get:
       summary: Echo
       operationId: echo
