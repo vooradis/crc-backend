@@ -72,13 +72,3 @@ resource "google_api_gateway_gateway" "api_gw" {
   
   depends_on   = [google_api_gateway_api_config.api_cfg]
 }
-
-# IAM entry for all users to invoke the function
-resource "google_api_gateway_gateway_iam_member" "member" {
-  provider = google-beta
-  project  = google_api_gateway_gateway.api_gw.project
-  region   = google_api_gateway_gateway.api_gw.region
-  gateway  = google_api_gateway_gateway.api_gw.gateway_id
-  role     = "roles/apigateway.viewer"
-  member   = "allUsers"
-}
