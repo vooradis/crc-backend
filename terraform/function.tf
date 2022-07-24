@@ -60,7 +60,7 @@ resource "google_api_gateway_api_config" "api_cfg" {
   }
 }
 
-resource "google_api_gateway_gateway" "gw" {
+resource "google_api_gateway_gateway" "api_gw" {
   provider = google-beta
   region   = var.region
   project  = var.project
@@ -74,11 +74,10 @@ resource "google_api_gateway_gateway" "gw" {
 }
 
 # IAM entry for all users to invoke the function
-resource "google_api_gateway_api_config_iam_member" "member" {
-  project        = google_api_gateway_api_config.api_cfg.project
-  region         = google_api_gateway_api_config.api_cfg.region
-  api            = google_api_gateway_api_config.api_cfg.api
-  api_config     = google_api_gateway_api_config.api_cfg.api_config_id
+resource "google_api_gateway_gateway_iam_member" "member" {
+  project = google_api_gateway_gateway.api_gw.project
+  region = google_api_gateway_gateway.api_gw.region
+  gateway = google_api_gateway_gateway.api_gw.gateway_id
 
   role   = "roles/apigateway.viewer"
   member = "allUsers"
