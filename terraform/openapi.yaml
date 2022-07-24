@@ -14,17 +14,8 @@ paths:
       operationId: counter
       x-google-backend:
         address: https://australia-southeast1-elevated-cargo-355220.cloudfunctions.net/backend-serverless-function
+        allowCors: True
       responses:
-        200:
-          description: Successful response
-          schema:
-            type: string
-    options:
-       summary: Visitor Counter
-       operationId: counter
-       x-google-backend:
-         address: https://australia-southeast1-elevated-cargo-355220.cloudfunctions.net/backend-serverless-function
-       responses:
         200:
           description: Successful response
           schema:
